@@ -1,0 +1,104 @@
+<%- include('partials/_header') %> <!--Importa el layout header desde partials-->
+
+
+<div class="container" style="padding-top: 150px;">
+    <h3 class="text-center">Administración de mascotas</h3>
+
+<div class="container rounded p-3">
+<!--Formulario de ingreso de informacion a la base de datos-->
+    <div class="container  border-radius-x green-bg p-1">
+        <h3>Formulario para ingreso de información</h3>
+            <form action="/add" method="POST">
+                <div class="col-md-6">
+                    <input type="text" name="nombre" placeholder="Nombre mascota" class="form-control my-1" required>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" name="raza" placeholder="Raza" class="form-control my-1" required>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" name="edad" placeholder="Edad" class="form-control my-1" required>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" name="foto" placeholder="Url Imagen" class="form-control my-1" required>
+                </div>
+                <div class="col-md-6">
+                    <textarea name="perfil" cols="80" placeholder="Perfil" class="form-control my-1" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary my-2">
+                        Agregar 
+                </button>
+            </form>
+    </div>
+
+<!--Fin Formulario-->
+
+<!--Tabla de mascotas-->
+<div class="row g-3 mb-3 col-md-12">  
+    <h3>Todas las mascotas</h3>      
+            <table class="table table-bordered table-hover p-2 align-middle">
+                <thead>
+                    <tr>
+                        <th class="text-center">Id</th>
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Raza</th>
+                        <th class="text-center">Edad</th>
+                        <th class="text-center">Imagen</th>
+                        <th class="text-center">Perfil</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (var i = 0; i < tasks.length ; i++) { %>
+                        <tr>
+                            <td><%= i+1 %></td>
+                            <td><%= tasks[i].nombre %></td>
+                            <td><%= tasks[i].raza %></td>
+                            <td class="text-center"><%= tasks[i].edad %></td>
+                            <td><a href="<%= tasks[i].foto %>" target="blank"><img class="rounded mx-auto d-block" src="<%= tasks[i].foto %>" height="100"></a></td>
+                            <td><%= tasks[i].perfil %></td>
+                            <td>
+                                <div class="d-grid gap-2">
+                                <a class="btn <%= tasks[i].status ? 'btn-info' : 'btn-success' %>" 
+                                    href="/turn/<%= tasks[i]._id %>">
+                                    <%= tasks[i].status ? 'Adoptado' : 'Disponible' %>
+                                </a>
+                                </div>
+                                <div class="d-grid gap-2">
+                                <a class="btn btn-outline-success my-1" href="/edit/<%= tasks[i]._id %>">Editar</a>
+                                </div>
+                                <div class="d-grid gap-2">
+                                <a class="btn btn-outline-warning" href="/delete/<%= tasks[i]._id %>">Borarr</a>
+                                </div>
+                            </td>
+                        </tr>
+                    <%}%>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="container-xxl border-radius-x green-bg my-4">
+    <form method="get" action="/correo">
+        <p class="text-center fs-5 p-4 listo" > 
+            <button type="submit" class="btn btn-primary position-relative btn btn-success">Bandeja de Entrada
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-right-dots" viewBox="0 0 16 16">
+                    <path d="M2 1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h9.586a2 2 0 0 1 1.414.586l2 2V2a1 1 0 0 0-1-1H2zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z"/>
+                    <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                  </svg>
+                  <% var count = 0;%>
+                    <% for (var i = 0; i < info.length  ; i++) { %>
+                        <% if( info[i].status == false){%>   
+                            <%count=count+1%>
+                        <%}%>
+                    <%}%>
+                    <%if (count>0){%>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                <a><%= count %></a>
+                        </span>
+                    <%}%>
+              </button>
+        </p>
+    </form>
+  </div>    
+</div>
+<%- include('partials/_footer') %> <!--Importa el layout header desde partials-->

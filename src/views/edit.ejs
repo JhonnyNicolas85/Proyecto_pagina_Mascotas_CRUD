@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mascotas</title>
+    <!--Css personalizado-->
+    <link href="css/style.css" rel="stylesheet">
+    <!--Bootstrap 5-->    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+</head>
+<body>
+ 
+<h3 class="text-center">Editar</h3>
+<div class="container">
+    <div class="row">
+        <div class="col-md-5  offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <form action="/edit/<%= task._id %>" method="POST">
+                        <div class="form-group">
+                            <input type="text" name="nombre" placeholder="Nombre mascota" class="form-control my-1" value="<%= task.nombre %>">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="raza" placeholder="Raza" class="form-control my-1" value="<%= task.raza %>">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="edad" placeholder="Edad" class="form-control my-1" value="<%= task.edad %>">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="foto" placeholder="Foto" class="form-control my-1" value="<%= task.foto %>">
+                        </div>
+                        <div class="form-group">
+                            <textarea name="perfil" cols="80" placeholder="Perfil" class="form-control my-1"> <%= task.perfil %> </textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success form-control my-2">
+                               Actualizar 
+                        </button>
+                        <button type="Cancel" class="btn btn-primary form-control my-2">
+                            Cancelar 
+                     </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
